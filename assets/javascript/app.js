@@ -40,6 +40,10 @@ $("button").on("click", function() {
             ratingParagraph.text("Rating: " + results[i].rating);
             var gifImage = $("<img>");
             gifImage.attr("src", results[i].images.fixed_height_still.url);
+            gifImage.attr("data-still", results[i].images.fixed_height_still.url);
+            gifImage.attr("data-animate", results[i].images.fixed_height.url);
+            gifImage.attr("data-state", "still");
+            gifImage.addClass("gif");
             gifDiv.append(ratingParagraph);
             gifDiv.append(gifImage);
             $("#gif-population").prepend(gifDiv);
@@ -47,7 +51,19 @@ $("button").on("click", function() {
     });
 });
 
-// animating the GIFs when image is clicked
+// animating the GIFs when image is clicked (this section isn't working...)
+$(".gif").on("click", function() {
+    
+    var state = $(this).attr("data-state");
+ 
+    if (state === "still") {
+      $(this).attr("src", $(this).attr("data-animate"));
+      $(this).attr("data-state", "animate");
+    } else {
+      $(this).attr("src", $(this).attr("data-still"));
+      $(this).attr("data-state", "still");
+    }
+  });
 
 
 
